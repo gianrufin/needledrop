@@ -11,6 +11,7 @@ function App() {
   const { position, heading, error: gpsError } = useGeolocation();
   const { needles, activeNeedle, dropNeedle, deleteNeedle, engageNeedle } = useNeedles();
   const [online, setOnline] = useState(navigator.onLine);
+  const [vaultOpen, setVaultOpen] = useState(false);
 
   useEffect(() => {
     const goOnline = () => setOnline(true);
@@ -46,34 +47,43 @@ function App() {
     dropNeedle(label, position);
   }
 
+  function handleEngage(id) {
+    engageNeedle(id);
+    setVaultOpen(false);
+  }
+
   return (
-    <div className="hud-scanlines flex min-h-screen flex-col bg-hud-bg text-hud-green">
+    <div className="flex min-h-screen flex-col bg-hud-bg text-white">
       <Header online={online} gpsError={gpsError} />
 
-      <main className="flex flex-1 flex-col justify-center gap-8 px-4 pb-24 pt-6">
-        {gpsError && (
-          <p className="mx-auto max-w-sm text-center text-[10px] tracking-widest text-hud-amber">
-            [ GPS WARNING: {gpsError.toUpperCase()} ]
-          </p>
-        )}
+      {!vaultOpen && (
+        <main className="flex flex-1 flex-col pb-32">
+          {gpsError && (
+            <p className="mx-auto mt-2 max-w-sm text-center text-xs text-hud-warn">
+              GPS warning: {gpsError}
+            </p>
+          )}
 
-        <RadarDisplay
-          activeNeedle={activeNeedle}
-          position={position}
-          heading={heading}
-          distance={distance}
-          bearing={bearing}
-        />
+          <RadarDisplay
+            activeNeedle={activeNeedle}
+            position={position}
+            heading={heading}
+            distance={distance}
+            bearing={bearing}
+          />
 
-        <div className="mx-auto w-full max-w-sm">
-          <ControlCenter onDrop={handleDrop} disabled={!position} />
-        </div>
-      </main>
+          <div className="pb-2">
+            <ControlCenter onDrop={handleDrop} disabled={!position} />
+          </div>
+        </main>
+      )}
 
       <NeedleVault
         needles={needles}
         activeId={activeNeedle?.id}
-        onEngage={engageNeedle}
+        open={vaultOpen}
+        onToggle={() => setVaultOpen((o) => !o)}
+        onEngage={handleEngage}
         onDelete={deleteNeedle}
       />
     </div>

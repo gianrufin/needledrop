@@ -1,84 +1,96 @@
-import { useState } from 'react';
-import { ChevronUp, Crosshair, Trash2 } from 'lucide-react';
+import { Compass, Trash2 } from 'lucide-react';
 import NeedleIcon from './NeedleIcon';
 import { formatCoord } from '../utils/geo';
 
-export default function NeedleVault({ needles, activeId, onEngage, onDelete }) {
-  const [open, setOpen] = useState(false);
-
+export default function NeedleVault({ needles, activeId, open, onToggle, onEngage, onDelete }) {
   return (
-    <div
-      className={`fixed inset-x-0 bottom-0 z-20 border-t border-emerald-500/30 bg-hud-panel/95 backdrop-blur-md transition-[height] duration-300 ${
-        open ? 'h-[60vh]' : 'h-14'
-      }`}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between px-4 py-4 text-xs font-bold tracking-widest text-hud-green"
-      >
-        <span>NEEDLE VAULT ({needles.length})</span>
-        <ChevronUp
-          size={18}
-          className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
-        />
-      </button>
-
+    <>
       {open && (
-        <div className="h-[calc(60vh-3.5rem)] overflow-y-auto px-3 pb-6">
-          {needles.length === 0 && (
-            <p className="mt-6 text-center text-xs tracking-widest text-hud-green/40">
-              VAULT EMPTY — NO NEEDLES DROPPED
-            </p>
-          )}
+        <div className="fixed inset-x-0 bottom-24 top-24 z-20 flex flex-col rounded-t-3xl border-t border-hud-teal-light/30 bg-hud-panel px-4 pt-4 shadow-[0_-16px_40px_rgba(0,0,0,0.4)]">
+          <p className="mb-3 px-1 text-lg font-semibold text-white">
+            Needle Vault <span className="text-hud-muted">({needles.length})</span>
+          </p>
 
-          <ul className="flex flex-col gap-2">
-            {needles.map((n) => {
-              const isActive = n.id === activeId;
-              return (
-                <li
-                  key={n.id}
-                  className={`flex items-center gap-3 border px-3 py-3 ${
-                    isActive
-                      ? 'border-hud-green bg-hud-green/10'
-                      : 'border-emerald-500/20 bg-hud-bg/40'
-                  }`}
-                >
-                  <NeedleIcon size={20} active={isActive} className="shrink-0 text-hud-green" />
-                  <button
-                    type="button"
-                    onClick={() => onEngage(n.id)}
-                    className="min-w-0 flex-1 text-left"
+          <div className="flex-1 overflow-y-auto pb-4">
+            {needles.length === 0 && (
+              <p className="mt-8 text-center text-sm text-hud-muted">
+                No needles dropped yet.
+              </p>
+            )}
+
+            <ul className="flex flex-col gap-2">
+              {needles.map((n) => {
+                const isActive = n.id === activeId;
+                return (
+                  <li
+                    key={n.id}
+                    className={`flex items-center gap-3 rounded-2xl px-3 py-3 ${
+                      isActive ? 'bg-hud-teal/40' : 'bg-hud-bg/60'
+                    }`}
                   >
-                    <p className="truncate text-sm tracking-wide text-hud-green">{n.label}</p>
-                    <p className="truncate text-[10px] tracking-widest text-hud-green/50">
-                      {formatCoord(n.lat)}, {formatCoord(n.lon)}
-                    </p>
-                  </button>
-                  {!isActive && (
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-hud-teal-deep">
+                      <NeedleIcon size={18} active={isActive} className="text-hud-cyan" />
+                    </span>
                     <button
                       type="button"
                       onClick={() => onEngage(n.id)}
-                      aria-label="Engage target"
-                      className="shrink-0 border border-emerald-500/40 p-2 text-hud-green active:bg-hud-green/20"
+                      className="min-w-0 flex-1 text-left"
                     >
-                      <Crosshair size={16} />
+                      <p className="truncate text-sm font-medium text-white">{n.label}</p>
+                      <p className="truncate text-xs text-hud-muted">
+                        {formatCoord(n.lat)}, {formatCoord(n.lon)}
+                      </p>
                     </button>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => onDelete(n.id)}
-                    aria-label="Delete needle"
-                    className="shrink-0 border border-hud-amber/40 p-2 text-hud-amber active:bg-hud-amber/20"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+                    {!isActive && (
+                      <button
+                        type="button"
+                        onClick={() => onEngage(n.id)}
+                        aria-label="Engage target"
+                        className="shrink-0 rounded-full bg-hud-teal-deep p-2.5 text-hud-cyan active:opacity-70"
+                      >
+                        <Compass size={16} />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => onDelete(n.id)}
+                      aria-label="Delete needle"
+                      className="shrink-0 rounded-full bg-hud-warn/10 p-2.5 text-hud-warn active:bg-hud-warn/20"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       )}
-    </div>
+
+      <nav className="fixed inset-x-0 bottom-6 z-30 flex justify-center">
+        <div className="flex items-center gap-2 rounded-full bg-hud-teal-deep p-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
+          <button
+            type="button"
+            aria-label="Radar view"
+            onClick={() => open && onToggle()}
+            className={`flex h-12 w-12 items-center justify-center rounded-full transition ${
+              !open ? 'bg-hud-cyan text-hud-cyan-ink' : 'text-hud-muted'
+            }`}
+          >
+            <NeedleIcon size={20} />
+          </button>
+          <button
+            type="button"
+            aria-label="Needle vault"
+            onClick={() => !open && onToggle()}
+            className={`flex h-12 w-12 items-center justify-center rounded-full transition ${
+              open ? 'bg-hud-cyan text-hud-cyan-ink' : 'text-hud-muted'
+            }`}
+          >
+            <Compass size={20} />
+          </button>
+        </div>
+      </nav>
+    </>
   );
 }

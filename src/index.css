@@ -1,12 +1,21 @@
 @import "tailwindcss";
+@import "@fontsource/fredoka/400.css";
+@import "@fontsource/fredoka/500.css";
+@import "@fontsource/fredoka/600.css";
+@import "@fontsource/fredoka/700.css";
 
 @theme {
-  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Fredoka", ui-rounded, "Nunito", system-ui, sans-serif;
 
-  --color-hud-bg: #121214;
-  --color-hud-panel: #1a1a1d;
-  --color-hud-green: #00ff66;
-  --color-hud-amber: #ff7a00;
+  --color-hud-bg: #141a26;
+  --color-hud-panel: #1b2231;
+  --color-hud-teal-deep: #0b4548;
+  --color-hud-teal: #17595c;
+  --color-hud-teal-light: #2a8286;
+  --color-hud-cyan: #7fe0f2;
+  --color-hud-cyan-ink: #0c2e30;
+  --color-hud-muted: #8a93a8;
+  --color-hud-warn: #f2643f;
 }
 
 html,
@@ -19,55 +28,40 @@ body,
 body {
   margin: 0;
   background-color: var(--color-hud-bg);
-  color: var(--color-hud-green);
-  font-family: var(--font-mono);
+  color: #eef2f6;
+  font-family: var(--font-sans);
   -webkit-tap-highlight-color: transparent;
-}
-
-/* tactical scanline / grid texture */
-.hud-scanlines {
-  background-image: repeating-linear-gradient(
-    0deg,
-    rgba(0, 255, 102, 0.035) 0px,
-    rgba(0, 255, 102, 0.035) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-}
-
-.radar-grid {
-  background-image: radial-gradient(circle, rgba(0, 255, 102, 0.15) 1px, transparent 1px);
-  background-size: 16px 16px;
 }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.15; }
+  50% { opacity: 0.25; }
 }
 .animate-blink {
-  animation: blink 1.4s ease-in-out infinite;
+  animation: blink 1.6s ease-in-out infinite;
 }
 
-@keyframes radar-sweep {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes ring-pulse {
+  0% { transform: scale(0.94); opacity: 0.9; }
+  70% { transform: scale(1.12); opacity: 0; }
+  100% { transform: scale(1.12); opacity: 0; }
 }
-.animate-radar-sweep {
-  animation: radar-sweep 4s linear infinite;
+.animate-ring-pulse {
+  animation: ring-pulse 2.2s ease-out infinite;
 }
 
 @keyframes lock-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.6); }
-  50% { box-shadow: 0 0 0 24px rgba(0, 255, 102, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(127, 224, 242, 0.45); }
+  50% { box-shadow: 0 0 0 22px rgba(127, 224, 242, 0); }
 }
 .animate-lock-pulse {
-  animation: lock-pulse 1.2s ease-out infinite;
+  animation: lock-pulse 1.4s ease-out infinite;
 }
 
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 102, 0.3);
+  background: rgba(127, 224, 242, 0.3);
   border-radius: 4px;
 }

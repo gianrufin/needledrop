@@ -14,9 +14,9 @@ export default defineConfig({
       manifest: {
         name: 'NEEDLEDROP',
         short_name: 'NEEDLEDROP',
-        description: 'Tactical GPS needle drop and directional radar tracker.',
-        theme_color: '#121214',
-        background_color: '#121214',
+        description: 'Drop a GPS needle and find your way back with a simple directional arrow.',
+        theme_color: '#141a26',
+        background_color: '#141a26',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
