@@ -1,6 +1,6 @@
 /**
- * NEEDLEDROP's pin mark — a soft, rounded teardrop with a hollow core,
- * used anywhere a location needs a friendly, brand-consistent glyph.
+ * NEEDLEDROP's mark — a turntable tonearm swinging down to a stylus tip,
+ * used anywhere a location/target needs a brand-consistent glyph.
  */
 export default function NeedleIcon({ className = '', active = false, size = 24 }) {
   return (
@@ -14,11 +14,23 @@ export default function NeedleIcon({ className = '', active = false, size = 24 }
         .filter(Boolean)
         .join(' ')}
     >
-      <path
-        d="M12 2C7.6 2 4 5.5 4 9.8C4 15.4 12 22 12 22C12 22 20 15.4 20 9.8C20 5.5 16.4 2 12 2Z"
-        fill="currentColor"
+      {/* pivot */}
+      <circle cx="6" cy="5.2" r="2.4" fill="currentColor" />
+      {/* tonearm */}
+      <line
+        x1="6"
+        y1="5.2"
+        x2="14.5"
+        y2="13.7"
+        stroke="currentColor"
+        strokeWidth="2.1"
+        strokeLinecap="round"
       />
-      <circle cx="12" cy="9.6" r="3" fill="var(--color-hud-bg)" />
+      {/* headshell + stylus */}
+      <g transform="translate(14.5 13.7) rotate(45)">
+        <rect x="-1.7" y="-1.2" width="3.4" height="8.6" rx="1.5" fill="currentColor" />
+      </g>
+      <circle cx="20" cy="19.2" r="1.15" fill="currentColor" />
     </svg>
   );
 }
