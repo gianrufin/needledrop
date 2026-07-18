@@ -10,7 +10,10 @@ export default function NeedleIcon({ className = '', active = false, size = 24 }
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={[active ? 'drop-shadow-[0_0_10px_rgba(127,224,242,0.55)]' : '', className]
+      className={[
+        active ? 'drop-shadow-[0_0_10px_color-mix(in_srgb,var(--color-hud-cyan)_55%,transparent)]' : '',
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
     >

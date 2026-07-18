@@ -14,7 +14,7 @@ export default function RadarDisplay({ activeNeedle, position, heading, distance
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 px-8 text-center">
         <NeedleIcon size={72} className="text-hud-muted/50" />
-        <p className="text-xl font-semibold text-white">No target set</p>
+        <p className="text-xl font-semibold text-hud-ink">No target set</p>
         <p className="max-w-[16rem] text-sm text-hud-muted">
           Tap the button below to drop your first needle.
         </p>
@@ -28,7 +28,7 @@ export default function RadarDisplay({ activeNeedle, position, heading, distance
         <RingBadge pulsing>
           <NeedleIcon size={40} className="text-hud-cyan" />
         </RingBadge>
-        <p className="text-xl font-semibold text-white">Finding you…</p>
+        <p className="text-xl font-semibold text-hud-ink">Finding you…</p>
         <p className="text-sm text-hud-muted">Acquiring GPS signal</p>
       </div>
     );
@@ -40,7 +40,7 @@ export default function RadarDisplay({ activeNeedle, position, heading, distance
         <RingBadge locked>
           <NeedleIcon size={40} active className="text-hud-cyan" />
         </RingBadge>
-        <p className="text-2xl font-semibold text-white">Target reached</p>
+        <p className="text-2xl font-semibold text-hud-ink">Target reached</p>
         <p className="text-sm text-hud-cyan">Lock confirmed</p>
         {activeNeedle.level && <LevelBadge level={activeNeedle.level} />}
       </div>
@@ -51,18 +51,18 @@ export default function RadarDisplay({ activeNeedle, position, heading, distance
     <div className="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
       <ArrowUp
         size={104}
-        className="text-hud-cyan drop-shadow-[0_0_16px_rgba(127,224,242,0.5)] transition-transform duration-300 ease-out"
+        className="text-hud-cyan drop-shadow-[0_0_16px_color-mix(in_srgb,var(--color-hud-cyan)_50%,transparent)] transition-transform duration-300 ease-out"
         style={{ transform: `rotate(${rotation}deg)` }}
         strokeWidth={2.75}
       />
 
       <p className="mt-2 flex items-baseline gap-1.5">
-        <span className="text-6xl font-semibold text-white">{value}</span>
+        <span className="text-6xl font-semibold text-hud-ink">{value}</span>
         <span className="text-xl font-medium text-hud-muted">{unit}</span>
       </p>
       <p className="text-sm font-medium text-hud-muted">ahead</p>
 
-      <p className="mt-4 text-lg font-semibold text-white">{activeNeedle.label}</p>
+      <p className="mt-4 text-lg font-semibold text-hud-ink">{activeNeedle.label}</p>
       {activeNeedle.level && <LevelBadge level={activeNeedle.level} />}
       <p className="text-xs text-hud-muted">
         {formatCoord(activeNeedle.lat)}, {formatCoord(activeNeedle.lon)}

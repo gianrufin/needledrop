@@ -53,7 +53,7 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-hud-bg text-white">
+    <div className="flex min-h-screen flex-col bg-hud-bg text-hud-ink">
       <Header online={online} gpsError={gpsError} />
 
       {!vaultOpen && (

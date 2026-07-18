@@ -7,7 +7,7 @@ export default function NeedleVault({ needles, activeId, open, onToggle, onEngag
     <>
       {open && (
         <div className="fixed inset-x-0 bottom-24 top-24 z-20 flex flex-col rounded-t-3xl border-t border-hud-teal-light/30 bg-hud-panel px-4 pt-4 shadow-[0_-16px_40px_rgba(0,0,0,0.4)]">
-          <p className="mb-3 px-1 text-lg font-semibold text-white">
+          <p className="mb-3 px-1 text-lg font-semibold text-hud-ink">
             Needle Vault <span className="text-hud-muted">({needles.length})</span>
           </p>
 
@@ -37,7 +37,7 @@ export default function NeedleVault({ needles, activeId, open, onToggle, onEngag
                       className="min-w-0 flex-1 text-left"
                     >
                       <span className="flex items-center gap-2">
-                        <p className="truncate text-sm font-medium text-white">{n.label}</p>
+                        <p className="truncate text-sm font-medium text-hud-ink">{n.label}</p>
                         {n.level && (
                           <span className="shrink-0 rounded-full bg-hud-bg px-2 py-0.5 text-[10px] font-semibold text-hud-cyan">
                             {n.level}
@@ -81,7 +81,7 @@ export default function NeedleVault({ needles, activeId, open, onToggle, onEngag
             aria-label="Radar view"
             onClick={() => open && onToggle()}
             className={`flex h-12 w-12 items-center justify-center rounded-full transition ${
-              !open ? 'bg-hud-cyan text-hud-cyan-ink' : 'text-hud-muted'
+              !open ? 'bg-hud-accent text-hud-accent-ink' : 'text-hud-muted'
             }`}
           >
             <NeedleIcon size={20} />
@@ -91,7 +91,7 @@ export default function NeedleVault({ needles, activeId, open, onToggle, onEngag
             aria-label="Needle vault"
             onClick={() => !open && onToggle()}
             className={`flex h-12 w-12 items-center justify-center rounded-full transition ${
-              open ? 'bg-hud-cyan text-hud-cyan-ink' : 'text-hud-muted'
+              open ? 'bg-hud-accent text-hud-accent-ink' : 'text-hud-muted'
             }`}
           >
             <Compass size={20} />
