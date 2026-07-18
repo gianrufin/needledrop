@@ -42,6 +42,7 @@ export default function RadarDisplay({ activeNeedle, position, heading, distance
         </RingBadge>
         <p className="text-2xl font-semibold text-white">Target reached</p>
         <p className="text-sm text-hud-cyan">Lock confirmed</p>
+        {activeNeedle.level && <LevelBadge level={activeNeedle.level} />}
       </div>
     );
   }
@@ -62,6 +63,7 @@ export default function RadarDisplay({ activeNeedle, position, heading, distance
       <p className="text-sm font-medium text-hud-muted">ahead</p>
 
       <p className="mt-4 text-lg font-semibold text-white">{activeNeedle.label}</p>
+      {activeNeedle.level && <LevelBadge level={activeNeedle.level} />}
       <p className="text-xs text-hud-muted">
         {formatCoord(activeNeedle.lat)}, {formatCoord(activeNeedle.lon)}
       </p>
@@ -97,6 +99,14 @@ function RingBadge({ children, pulsing, locked }) {
         {children}
       </div>
     </div>
+  );
+}
+
+function LevelBadge({ level }) {
+  return (
+    <span className="rounded-full bg-hud-teal-deep px-3 py-1 text-xs font-semibold text-hud-cyan">
+      {level}
+    </span>
   );
 }
 

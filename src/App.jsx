@@ -42,9 +42,9 @@ function App() {
     };
   }, [position, activeNeedle]);
 
-  function handleDrop(label) {
+  function handleDrop(label, level) {
     if (!position) return;
-    dropNeedle(label, position);
+    dropNeedle(label, position, level);
   }
 
   function handleEngage(id) {

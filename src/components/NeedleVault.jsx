@@ -36,7 +36,14 @@ export default function NeedleVault({ needles, activeId, open, onToggle, onEngag
                       onClick={() => onEngage(n.id)}
                       className="min-w-0 flex-1 text-left"
                     >
-                      <p className="truncate text-sm font-medium text-white">{n.label}</p>
+                      <span className="flex items-center gap-2">
+                        <p className="truncate text-sm font-medium text-white">{n.label}</p>
+                        {n.level && (
+                          <span className="shrink-0 rounded-full bg-hud-bg px-2 py-0.5 text-[10px] font-semibold text-hud-cyan">
+                            {n.level}
+                          </span>
+                        )}
+                      </span>
                       <p className="truncate text-xs text-hud-muted">
                         {formatCoord(n.lat)}, {formatCoord(n.lon)}
                       </p>

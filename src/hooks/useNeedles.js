@@ -36,10 +36,11 @@ export function useNeedles() {
     }
   }, [activeId]);
 
-  const dropNeedle = useCallback((label, coords) => {
+  const dropNeedle = useCallback((label, coords, level) => {
     const needle = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       label: label?.trim() || new Date().toLocaleString(),
+      level: level?.trim() || null,
       lat: coords.latitude,
       lon: coords.longitude,
       createdAt: Date.now(),

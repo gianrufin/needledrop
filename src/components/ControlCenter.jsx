@@ -4,37 +4,50 @@ import NeedleIcon from './NeedleIcon';
 export default function ControlCenter({ onDrop, disabled }) {
   const [promptOpen, setPromptOpen] = useState(false);
   const [label, setLabel] = useState('');
+  const [level, setLevel] = useState('');
 
   function submit(e) {
     e.preventDefault();
-    onDrop(label);
+    onDrop(label, level);
     setLabel('');
+    setLevel('');
     setPromptOpen(false);
   }
 
   if (promptOpen) {
     return (
-      <form onSubmit={submit} className="flex items-center gap-2 px-5">
+      <form
+        onSubmit={submit}
+        className="mx-5 flex flex-col gap-2 rounded-3xl bg-hud-panel p-3"
+      >
         <input
           autoFocus
           value={label}
           onChange={(e) => setLabel(e.target.value)}
           placeholder="Label (e.g. Car, Tent)"
-          className="flex-1 rounded-full border-2 border-hud-teal-light/60 bg-hud-panel px-5 py-4 text-sm text-white placeholder:text-hud-muted focus:border-hud-cyan focus:outline-none"
+          className="rounded-full border-2 border-hud-teal-light/60 bg-hud-bg px-5 py-4 text-sm text-white placeholder:text-hud-muted focus:border-hud-cyan focus:outline-none"
         />
-        <button
-          type="submit"
-          className="rounded-full bg-hud-cyan px-5 py-4 text-sm font-semibold text-hud-cyan-ink active:opacity-80"
-        >
-          Save
-        </button>
-        <button
-          type="button"
-          onClick={() => setPromptOpen(false)}
-          className="rounded-full border-2 border-hud-warn/50 px-4 py-4 text-sm font-semibold text-hud-warn active:bg-hud-warn/10"
-        >
-          ✕
-        </button>
+        <input
+          value={level}
+          onChange={(e) => setLevel(e.target.value)}
+          placeholder="Level / floor (optional, e.g. P3)"
+          className="rounded-full border-2 border-hud-teal-light/60 bg-hud-bg px-5 py-4 text-sm text-white placeholder:text-hud-muted focus:border-hud-cyan focus:outline-none"
+        />
+        <div className="flex items-center gap-2">
+          <button
+            type="submit"
+            className="flex-1 rounded-full bg-hud-cyan py-3.5 text-sm font-semibold text-hud-cyan-ink active:opacity-80"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            onClick={() => setPromptOpen(false)}
+            className="rounded-full border-2 border-hud-warn/50 px-4 py-3.5 text-sm font-semibold text-hud-warn active:bg-hud-warn/10"
+          >
+            ✕
+          </button>
+        </div>
       </form>
     );
   }
