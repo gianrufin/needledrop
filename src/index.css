@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-hud-bg: #121214;
+  --color-hud-panel: #1a1a1d;
+  --color-hud-green: #00ff66;
+  --color-hud-amber: #ff7a00;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-hud-bg);
+  color: var(--color-hud-green);
+  font-family: var(--font-mono);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* tactical scanline / grid texture */
+.hud-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 102, 0.035) 0px,
+    rgba(0, 255, 102, 0.035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.radar-grid {
+  background-image: radial-gradient(circle, rgba(0, 255, 102, 0.15) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+.animate-blink {
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-radar-sweep {
+  animation: radar-sweep 4s linear infinite;
+}
+
+@keyframes lock-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.6); }
+  50% { box-shadow: 0 0 0 24px rgba(0, 255, 102, 0); }
+}
+.animate-lock-pulse {
+  animation: lock-pulse 1.2s ease-out infinite;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 102, 0.3);
+  border-radius: 4px;
+}
