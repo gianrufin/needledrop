@@ -1,9 +1,12 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <rect width="512" height="512" fill="#141a26" />
   <circle cx="256" cy="256" r="180" fill="#0b4548" />
-  <path
-    d="M256 130C204.6 130 163 171.9 163 223.8C163 296.4 256 382 256 382C256 382 349 296.4 349 223.8C349 171.9 307.4 130 256 130Z"
-    fill="#7fe0f2"
-  />
-  <circle cx="256" cy="221" r="34" fill="#141a26" />
+  <g transform="translate(166 156) scale(8.2)">
+    <circle cx="6" cy="5.2" r="2.4" fill="#7fe0f2" />
+    <line x1="6" y1="5.2" x2="14.5" y2="13.7" stroke="#7fe0f2" stroke-width="2.1" stroke-linecap="round" />
+    <g transform="translate(14.5 13.7) rotate(45)">
+      <rect x="-1.7" y="-1.2" width="3.4" height="8.6" rx="1.5" fill="#7fe0f2" />
+    </g>
+    <circle cx="20" cy="19.2" r="1.15" fill="#7fe0f2" />
+  </g>
 </svg>
