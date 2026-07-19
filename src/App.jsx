@@ -3,13 +3,16 @@ import Header from './components/Header';
 import RadarDisplay from './components/RadarDisplay';
 import ControlCenter from './components/ControlCenter';
 import NeedleVault from './components/NeedleVault';
+import Onboarding from './components/Onboarding';
 import { useGeolocation } from './hooks/useGeolocation';
 import { useNeedles } from './hooks/useNeedles';
+import { useOnboarding } from './hooks/useOnboarding';
 import { calculateBearing, haversineDistance } from './utils/geo';
 
 function App() {
   const { position, heading, error: gpsError } = useGeolocation();
   const { needles, activeNeedle, dropNeedle, deleteNeedle, engageNeedle } = useNeedles();
+  const { completed: onboarded, complete: completeOnboarding } = useOnboarding();
   const [online, setOnline] = useState(navigator.onLine);
   const [vaultOpen, setVaultOpen] = useState(false);
 
@@ -50,6 +53,10 @@ function App() {
   function handleEngage(id) {
     engageNeedle(id);
     setVaultOpen(false);
+  }
+
+  if (!onboarded) {
+    return <Onboarding onComplete={completeOnboarding} />;
   }
 
   return (
